@@ -1,3 +1,4 @@
+# pylint: skip-file
 import unittest
 from testing_imports import *
 from HTMLTestRunner import HTMLTestRunner
