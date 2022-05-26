@@ -142,7 +142,7 @@ class PublicTestsEx5(unittest.TestCase):
         self.assertIn(player_3[0], ["L. Messi", "Z. Ibrahimović", "L. Suárez"])
         self.assertAlmostEqual(player_3[1], 89.33333333333333, places=2)
         self.assertListEqual(player_3[2]["year"], [2016, 2017, 2018])
-        self.assertListEqual([int(x) for x in player_3[2]["value"]], [88, 90, 90])
+        self.assertCountEqual([int(x) for x in player_3[2]["value"]], [88, 90, 90])
 
 
 if __name__ == '__main__':
