@@ -1,0 +1,14 @@
+# Librería para manipulación y análisis de datos - pip install pandas
+pandas          
+
+# Lectura de archivos Excel (.xlsx) - pip install openpyxl
+openpyxl        
+
+# Visualización de datos - pip install matplotlib
+matplotlib      
+
+# Testing del proyecto - pip install pytest
+pytest          
+
+# Estadística de correlación y regresión - pip install scipy
+scipy           
