@@ -1,8 +1,5 @@
-# PEC4 
 
 Autor: Luis David Espinal Espinal 
-Asignatura: Programación para la Ciencia de Datos  
-Curso: 2025–2026  
 
 # Descripción del proyecto
 
