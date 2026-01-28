@@ -167,3 +167,8 @@ src/rendimiento/report/analisi_estadistic.json
 
 Este proyecto se distribuye bajo la licencia MIT.
 Consulta el archivo LICENSE para más información.
+
+# Demo en vivo
+
+La aplicación está desplegada públicamente en Streamlit Cloud:
+https://university-performance-analysis-v4yyylcpfginmumyk6ic2a.streamlit.app/
