@@ -1,17 +1,19 @@
-# Librería para manipulación y análisis de datos - pip install pandas
-pandas          
-
-# Lectura de archivos Excel (.xlsx) - pip install openpyxl
-openpyxl        
-
-# Visualización de datos - pip install matplotlib
-matplotlib      
+ 
 
 # Testing del proyecto - pip install pytest
-pytest          
+# pytest          
 
-# Estadística de correlación y regresión - pip install scipy
-scipy           
+     
 
 # Framework para la parte web
-streamlit
+streamlit==1.25.0
+# Librería para manipulación y análisis de datos - pip install pandas
+pandas
+# Visualización de datos - pip install matplotlib
+matplotlib
+# Estadística de correlación y regresión - pip install scipy
+scipy
+# Lectura de archivos Excel (.xlsx) - pip install openpyxl
+openpyxl
+
+altair==4.2.2
