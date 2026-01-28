@@ -5,27 +5,27 @@ from src.rendimiento.ejercicio2 import run_ejercicio_2
 from src.rendimiento.ejercicio3 import plot_temporal_trends
 from src.rendimiento.ejercicio4 import analyze_dataset
 
-def load_css(path: str):
-    with open(path, "r", encoding="utf-8") as f:
-        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
-
-
-load_css("assets/style.css")
-
-# Configuración general
+# CONFIGURACIÓN GENERAL (SIEMPRE LO PRIMERO)
 st.set_page_config(
     page_title="Rendimiento universitario en Cataluña",
     layout="wide"
 )
 
-# Cabecera
+# ESTILOS
+def load_css(path: str):
+    with open(path, "r", encoding="utf-8") as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+load_css("assets/style.css")
+
+# CABECERA
 st.title("Rendimiento académico y abandono universitario")
 st.caption(
     "Aplicación para el análisis de datos universitarios "
     "basados en fuentes oficiales de la Generalitat de Catalunya."
 )
 
-# Navegación
+# NAVEGACIÓN
 st.sidebar.title("Secciones")
 
 opcion = st.sidebar.radio(
@@ -107,7 +107,7 @@ elif opcion == "Preparación de datos":
         st.subheader("Dataset completo")
         st.dataframe(df_final, use_container_width=True)
 
-# TEMPORAL
+# ANÁLISIS TEMPORAL
 elif opcion == "Análisis temporal":
     st.header("Análisis temporal")
 
@@ -120,7 +120,7 @@ elif opcion == "Análisis temporal":
             fig = plot_temporal_trends(st.session_state["df_final"])
         st.pyplot(fig)
 
-# ESTADÍSTICO
+# ANÁLISIS ESTADÍSTICO
 elif opcion == "Análisis estadístico":
     st.header("Análisis estadístico")
 
@@ -144,8 +144,14 @@ elif opcion == "Análisis estadístico":
 
         with tabs[0]:
             col1, col2, col3 = st.columns(3)
-            col1.metric("Abandono medio", f"{report['estadisticas_globales']['abandono_medio']:.2f}")
-            col2.metric("Rendimiento medio", f"{report['estadisticas_globales']['rendimiento_medio']:.2f}")
+            col1.metric(
+                "Abandono medio",
+                f"{report['estadisticas_globales']['abandono_medio']:.2f}"
+            )
+            col2.metric(
+                "Rendimiento medio",
+                f"{report['estadisticas_globales']['rendimiento_medio']:.2f}"
+            )
             col3.metric(
                 "Correlación",
                 f"{report['estadisticas_globales']['correlacion_abandono_rendimiento']['coeficiente']:.2f}"
