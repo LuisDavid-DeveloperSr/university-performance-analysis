@@ -2,7 +2,11 @@ import os
 import matplotlib.pyplot as plt
 
 
-def plot_temporal_trends(df, mi_nombre):
+# --------------------------------------------------
+# FUNCIÓN PRINCIPAL (WEB-FRIENDLY)
+# --------------------------------------------------
+
+def plot_temporal_trends(df):
     """
     Genera dos gráficos de series temporales:
     1) Evolución del % de abandono por curso académico
@@ -12,26 +16,27 @@ def plot_temporal_trends(df, mi_nombre):
     ----------
     df : pandas.DataFrame
         Dataset final fusionado (salida del Ejercicio 2)
-    student_name : str
-        Mi nombre
+
+    Returns
+    -------
+    matplotlib.figure.Figure
+        Figura generada
     """
 
-    # Ordeno el DataFrame por curso académico para que las series temporales sean coherentes
+    # Ordeno el DataFrame por curso académico
     df = df.sort_values("Curs Acadèmic")
 
-    # Cojo las ramas de estudio y una paleta de colores
     branches = df["Branca"].unique()
     colors = plt.get_cmap("tab10").colors
 
-    # Creo la figura con dos subgráficos verticales
-    _, axs = plt.subplots(2, 1, figsize=(14, 10))
+    fig, axs = plt.subplots(2, 1, figsize=(14, 10))
 
-    # Gráfico 1, de abandono 
+    # -------------------------------
+    # Gráfico 1 — Abandono
+    # -------------------------------
     for i, branch in enumerate(branches):
-        # Filtro los datos que corresponden a cada rama
         data_branch = df[df["Branca"] == branch]
 
-        # Represento la evolución del abandono para la rama actual
         axs[0].plot(
             data_branch["Curs Acadèmic"],
             data_branch["Taxa abandonament mitjana"],
@@ -39,18 +44,17 @@ def plot_temporal_trends(df, mi_nombre):
             color=colors[i % len(colors)],
         )
 
-    # Configuro títulos, etiquetas y leyenda del primer gráfico
     axs[0].set_title("Evolución del % de Abandono por curso académico")
     axs[0].set_ylabel("% Abandono")
     axs[0].grid(True)
     axs[0].legend()
 
-    # Gráfico 2, de rendimiento
+    # -------------------------------
+    # Gráfico 2 — Rendimiento
+    # -------------------------------
     for i, branch in enumerate(branches):
-        # Filtro los datos que corresponden a cada rama
         data_branch = df[df["Branca"] == branch]
 
-        # Represento la evolución del rendimiento para la rama actual
         axs[1].plot(
             data_branch["Curs Acadèmic"],
             data_branch["Taxa rendiment mitjana"],
@@ -58,28 +62,36 @@ def plot_temporal_trends(df, mi_nombre):
             color=colors[i % len(colors)],
         )
 
-    # Configuro títulos, etiquetas y leyenda del segundo gráfico
     axs[1].set_title("Evolución de la Tasa de Rendimiento por curso académico")
     axs[1].set_ylabel("Tasa de rendimiento")
     axs[1].set_xlabel("Curso académico")
     axs[1].grid(True)
     axs[1].legend()
 
-    # Roto las etiquetas del eje X para mejorar la legibilidad
     plt.xticks(rotation=45)
+    plt.tight_layout()
 
-    # Creo la carpeta de salida si no existe
+    return fig
+
+
+# --------------------------------------------------
+# VERSIÓN CLI (GUARDA IMAGEN + PRINTS)
+# --------------------------------------------------
+
+def plot_temporal_trends_cli(df, mi_nombre: str):
+    """
+    Versión para consola del Ejercicio 3.
+    Guarda el gráfico en disco y muestra mensajes.
+    """
+    fig = plot_temporal_trends(df)
+
     output_dir = "src/img"
     os.makedirs(output_dir, exist_ok=True)
 
-    # Defino el nombre y la ruta del archivo de salida
     filename = f"evolucion_{mi_nombre}.png"
     filepath = os.path.join(output_dir, filename)
 
-    # Ajusto el diseño, guardo la figura y cierro el gráfico
-    plt.tight_layout()
-    plt.savefig(filepath, dpi=300)
-    plt.close()
+    fig.savefig(filepath, dpi=300)
+    plt.close(fig)
 
-    # Muestro un mensaje indicando dónde se ha guardado la imagen
     print(f"\nGráfico guardado en: {filepath}")

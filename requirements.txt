@@ -12,3 +12,6 @@ pytest
 
 # Estadística de correlación y regresión - pip install scipy
 scipy           
+
+# Framework para la parte web
+streamlit

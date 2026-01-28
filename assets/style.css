@@ -1,0 +1,163 @@
+/* ==============================
+   VARIABLES DE COLOR
+   ============================== */
+:root {
+    --primary: #33CCFF;
+    --primary-dark: #1fb6e0;
+    --bg-light: #f8fafc;
+    --bg-dark: #0b1220;
+    --card-light: #ffffff;
+    --card-dark: #111827;
+    --text-light: #0f172a;
+    --text-dark: #e5e7eb;
+}
+
+/* ==============================
+   BASE
+   ============================== */
+.stApp {
+    font-family: Inter, system-ui, sans-serif;
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+/* ==============================
+   LIGHT MODE
+   ============================== */
+@media (prefers-color-scheme: light) {
+    .stApp {
+        background: linear-gradient(180deg, var(--bg-light), #eef7fb);
+        color: var(--text-light);
+    }
+
+    h1,
+    h2,
+    h3 {
+        color: #0f172a;
+    }
+
+    section[data-testid="stSidebar"] {
+        background: linear-gradient(180deg,
+                var(--primary),
+                var(--primary-dark));
+    }
+
+    section[data-testid="stSidebar"] * {
+        color: white;
+    }
+
+    .stButton>button {
+        background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+        color: white;
+        border: none;
+        border-radius: 10px;
+        padding: 0.6rem 1.2rem;
+        font-weight: 600;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .stButton>button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(51, 204, 255, 0.35);
+    }
+
+    div[data-testid="stMetric"] {
+        background: var(--card-light);
+        border-radius: 14px;
+        padding: 1rem;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        animation: slideUp 0.4s ease-out;
+    }
+
+    [data-testid="stMetricValue"] {
+        color: var(--primary);
+        font-size: 2rem;
+    }
+}
+
+/* ==============================
+   DARK MODE — SUAVE Y MODERNO
+   ============================== */
+@media (prefers-color-scheme: dark) {
+
+    /* Fondo general */
+    .stApp {
+        background-color: #0f172a; /* gris azulado, no negro */
+        color: #e5e7eb;
+    }
+
+    /* Títulos */
+    h1, h2, h3 {
+        color: #e2e8f0;
+    }
+
+    /* Sidebar */
+    section[data-testid="stSidebar"] {
+        background-color: #020617; /* más oscuro que el contenido */
+    }
+
+    section[data-testid="stSidebar"] * {
+        color: #e5e7eb;
+    }
+
+    /* Botones */
+    .stButton>button {
+        background-color: var(--primary);
+        color: #020617;
+        border: none;
+        border-radius: 10px;
+        padding: 0.6rem 1.2rem;
+        font-weight: 600;
+        transition: background-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .stButton>button:hover {
+        background-color: var(--primary-dark);
+        transform: translateY(-1px);
+    }
+
+    /* Cards (métricas) */
+    div[data-testid="stMetric"] {
+        background-color: #020617;
+        border-radius: 14px;
+        padding: 1rem;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+    }
+
+    /* Valores de métricas */
+    [data-testid="stMetricValue"] {
+        color: var(--primary);
+        font-size: 2rem;
+    }
+
+    /* Tablas */
+    [data-testid="stDataFrame"] {
+        background-color: #020617;
+        border-radius: 12px;
+    }
+}
+
+
+/* ==============================
+   ANIMACIONES
+   ============================== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

@@ -1,59 +1,119 @@
-# PEC4 
+# Rendimiento académico y abandono universitario en Cataluña
 
-Autor: Luis David Espinal Espinal 
-Asignatura: Programación para la Ciencia de Datos  
-Curso: 2025–2026  
+# Autor: Luis David Espinal Espinal
 
 # Descripción del proyecto
 
 Este proyecto analiza el rendimiento académico y la tasa de abandono de los estudiantes universitarios en Cataluña a partir de datos oficiales publicados por la Generalitat de Catalunya.
 
-El análisis incluye:
-- Exploración inicial de los datasets
-- Limpieza y fusión de datos
+El objetivo principal es estudiar la relación entre ambas variables, identificar tendencias temporales, y obtener métricas estadísticas que permitan interpretar la evolución del sistema universitario por ramas de estudio.
+
+El proyecto se ha desarrollado siguiendo una arquitectura modular en Python, con dos formas de uso claramente diferenciadas:
+
+🔹 Ejecución por línea de comandos (CLI)
+
+🔹 Dashboard web interactivo con Streamlit
+
+🔍 Contenido del análisis
+
+El análisis incluye las siguientes fases:
+
+- Exploración inicial de los datasets originales
+
+- Limpieza y normalización de los datos
+
+- Agrupación por rama de estudio y características comunes
+
+- Fusión de múltiples fuentes de datos
+
 - Análisis visual de tendencias temporales
-- Análisis estadístico automatizado con generación de informes
 
-El proyecto se ha desarrollado como un paquete Python modular, ejecutable desde línea de comandos.
+- Análisis estadístico automatizado
 
-# Estructura 
+- Generación de informes en formato JSON
+
+🌐 Aplicación web (Streamlit)
+
+Además de la ejecución por consola, el proyecto incluye una aplicación web interactiva desarrollada con Streamlit, que permite explorar el análisis de forma visual y dinámica.
+
+Características del dashboard:
+
+- Navegación por secciones del análisis
+
+- Exploración interactiva de los datasets
+
+- Visualización de tendencias temporales
+
+- Métricas estadísticas tipo KPI
+
+- Rankings por rama de estudio
+
+- Visualización del informe estadístico completo en JSON
+
+- Estilo visual personalizado con CSS externo
+
+- Soporte automático para modo claro y oscuro
+
+La lógica del análisis y el estilo visual están desacoplados, permitiendo modificar el diseño sin afectar al funcionamiento del programa.
+
+# Ejecución de la aplicación web
+
+Desde la raíz del proyecto:
+
+streamlit run app.py
+
+Esto abrirá el dashboard en el navegador por defecto.
+
+# Ejecución por línea de comandos (CLI)
+
+El proyecto puede ejecutarse íntegramente desde la terminal mediante main.py.
+
+Ejecutar todos los ejercicios:
+python main.py
+
+Ejecutar solo el ejercicio 1:
+python main.py -ex 1
+
+Ejecutar hasta el ejercicio 2:
+python main.py -ex 2
+
+Ejecutar hasta el ejercicio 3:
+python main.py -ex 3
+
+Mostrar ayuda:
+python main.py -h
+
+# Estructura del proyecto
 
 Activity_4/
-│
-├── LUIS DAVID ESPINAL ESPINAL
-├── README.md
-├── LICENSE
+├── app.py                  # Aplicación web (Streamlit)
+├── assets/
+│   └── style.css           # Estilos y animaciones del dashboard
+├── main.py                 # Punto de entrada CLI
 ├── requirements.txt
 ├── setup.py
 ├── .pylintrc
-├── main.py
-│
 ├── src/
-│   ├── rendimiento/
-│   │   ├── _init_.py
-│   │   ├── ejercicio1.py
-│   │   ├── ejercicio2.py
-│   │   ├── ejercicio3.py
-│   │   └── ejercicio4.py
-│   │
-│   ├── img/
-│   │   └── evolucion_Luis_David_Espinal_Espinal.png
-│   │
-│   └── report/
-│       └── analisi_estadistic.json
-│
+│   └── rendimiento/
+│       ├── __init__.py
+│       ├── ejercicio1.py   # Exploración de datos
+│       ├── ejercicio2.py   # Limpieza y fusión
+│       ├── ejercicio3.py   # Análisis temporal
+│       ├── ejercicio4.py   # Análisis estadístico
+│       ├── img/
+│       │   └── evolucion_Luis_David_Espinal_Espinal.png
+│       └── report/
+│           └── analisi_estadistic.json
 ├── tests/
 │   ├── test_ejercicio1.py
 │   ├── test_ejercicio2.py
 │   ├── test_ejercicio3.py
 │   └── test_ejercicio4.py
-│
 ├── doc/
 │   ├── src.rendimiento.ejercicio1.html
 │   ├── src.rendimiento.ejercicio2.html
 │   ├── src.rendimiento.ejercicio3.html
 │   └── src.rendimiento.ejercicio4.html
-│
 └── screenshots/
     ├── coverage.png
     ├── tests.png
@@ -63,79 +123,47 @@ Activity_4/
 
 # Instalación
 
-* Instalar dependencias: pip install -r requirements.txt
-* Comprobar la instalación: python -m pytest
-* Si se ejecutan los test sin errores es una manera para ver si está correcto
+Instalar las dependencias del proyecto:
 
-* Ejecución del proyecto
+pip install -r requirements.txt
 
-Ejecuta todos los ejercicios: python main.py
-Ejecuta solo el ejercicio 1: python main.py -ex 1
-Ejecuta hasta el Ejercicio 2: python main.py -ex 2
-Ejecuta hasta el Ejercicio 3: python main.py -ex 3
+# Tests
 
-* Muestra ayuda: python main.py -h
+Ejecutar todos los tests:
 
-* Resultados
+pytest
 
-Gráficos generados en: src/img/
 
-Informe estadístico JSON en: src/report/analisi_estadistic.json
+Ejecutar tests con cobertura:
 
-* Tests 
-
-Ejecutar tests: pytest
-
-Ejecutar tests con cobertura: pytest --cov=src --cov-report=term-missing
+pytest --cov=src --cov-report=term-missing
 
 # Documentación
 
-La documentación HTML se genera automáticamente a partir de los docstrings
-utilizando pydoc.
-Desde la raíz del proyecto se ejecutan los siguientes comandos:
+La documentación HTML se genera automáticamente a partir de los docstrings utilizando pydoc.
+
+Desde la raíz del proyecto:
 
 python -m pydoc -w src.rendimiento.ejercicio1
 python -m pydoc -w src.rendimiento.ejercicio2
 python -m pydoc -w src.rendimiento.ejercicio3
 python -m pydoc -w src.rendimiento.ejercicio4
 
-* Linting 
+# Linting
 
 El código sigue la guía PEP8 y se ha validado con pylint.
 
-Ejecutar: pylint src/rendimiento
+pylint src/rendimiento
 
-* Capturas de pantalla
+# Resultados generados
 
-Las capturas requeridas se encuentran en la carpeta screenshots/:
+Gráficos:
+src/rendimiento/img/
 
-* Documentación generada
-
-Ejecución de tests y coverage
-
-Ejecución del linter
+Informe estadístico en JSON:
+src/rendimiento/report/analisi_estadistic.json
 
 # Licencia
 
-MIT License
-
-Copyright (c) 2026 Luis David Espinal Espinal
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
+Este proyecto se distribuye bajo la licencia MIT.
+Consulta el archivo LICENSE para más información.

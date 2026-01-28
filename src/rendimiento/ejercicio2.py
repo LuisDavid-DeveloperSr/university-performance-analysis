@@ -1,12 +1,15 @@
 import pandas as pd
 
 
+# --------------------------------------------------
+# FUNCIONES DE TRANSFORMACIÓN (PURAS)
+# --------------------------------------------------
+
 def rename_abandono_columns(df: pd.DataFrame) -> pd.DataFrame:
     """
     Renombra las columnas del dataset de abandono para que coincidan
     con el dataset de rendimiento.
     """
-    # Renombro las columnas del dataset de abandono 
     return df.rename(columns={
         "Naturalesa universitat responsable": "Tipus universitat",
         "Universitat Responsable": "Universitat",
@@ -20,17 +23,14 @@ def drop_unnecessary_columns(df: pd.DataFrame, dataset_type: str) -> pd.DataFram
     """
     Elimina columnas innecesarias según el tipo de dataset.
     """
-    # Defino las columnas comunes que no se utilizarán en el análisis
     cols = ["Universitat", "Unitat"]
 
-    # Si el dataset es de rendimiento, elimino también columnas de créditos
     if dataset_type == "rendimiento":
         cols += [
             "Crèdits ordinaris superats",
             "Crèdits ordinaris matriculats"
         ]
 
-    # Elimino las columnas indicadas ignorando errores si alguna no existe
     return df.drop(columns=cols, errors="ignore")
 
 
@@ -42,7 +42,6 @@ def group_by_branch(
     """
     Agrupa por curso, rama y características comunes y calcula la media.
     """
-    # Defino las columnas por las que se van a agrupar los datos
     group_cols = [
         "Curs Acadèmic",
         "Tipus universitat",
@@ -53,7 +52,6 @@ def group_by_branch(
         "Integrat S/N"
     ]
 
-    # Agrupo los datos y calculo la media de la columna que indico
     return (
         df.groupby(group_cols, as_index=False)[value_column]
         .mean()
@@ -68,7 +66,6 @@ def merge_datasets(
     """
     Fusiona ambos datasets usando inner merge.
     """
-    # Defino las columnas clave comunes a los datasets
     merge_cols = [
         "Curs Acadèmic",
         "Tipus universitat",
@@ -79,5 +76,68 @@ def merge_datasets(
         "Integrat S/N"
     ]
 
-    # Realizo un merge interno para quedarme solo con las filas que coinciden
     return df_rendimiento.merge(df_abandono, on=merge_cols, how="inner")
+
+
+# --------------------------------------------------
+# PIPELINE COMPLETO (WEB-FRIENDLY)
+# --------------------------------------------------
+
+def run_ejercicio_2(
+    df_rendimiento: pd.DataFrame,
+    df_abandono: pd.DataFrame
+) -> pd.DataFrame:
+    """
+    Ejecuta el proceso completo del Ejercicio 2:
+    limpieza, agrupación y fusión de datasets.
+
+    Devuelve el DataFrame final (sin prints).
+    """
+    # Limpieza dataset abandono
+    df_abandono = rename_abandono_columns(df_abandono)
+    df_abandono = drop_unnecessary_columns(df_abandono, "abandono")
+
+    # Limpieza dataset rendimiento
+    df_rendimiento = drop_unnecessary_columns(df_rendimiento, "rendimiento")
+
+    # Agrupaciones
+    df_r_grouped = group_by_branch(
+        df_rendimiento,
+        "Taxa rendiment",
+        "Taxa rendiment mitjana"
+    )
+
+    df_a_grouped = group_by_branch(
+        df_abandono,
+        "Taxa abandonament",
+        "Taxa abandonament mitjana"
+    )
+
+    # Merge final
+    df_final = merge_datasets(df_r_grouped, df_a_grouped)
+
+    return df_final
+
+
+# --------------------------------------------------
+# VERSIÓN CLI (OPCIONAL, PERO MUY PRO)
+# --------------------------------------------------
+
+def run_ejercicio_2_cli(
+    df_rendimiento: pd.DataFrame,
+    df_abandono: pd.DataFrame
+) -> pd.DataFrame:
+    """
+    Versión para consola del Ejercicio 2 (con prints).
+    """
+    print("\nEjercicio 2 — Limpieza y unión de datasets")
+
+    df_final = run_ejercicio_2(df_rendimiento, df_abandono)
+
+    print("\nPrimeras filas del dataset final:")
+    print(df_final.head())
+
+    print("\nDimensiones del dataset final:")
+    print(df_final.shape)
+
+    return df_final
